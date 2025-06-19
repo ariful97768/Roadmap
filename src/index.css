@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+/* styles.css */
+.truncate-3-lines {
+  display: -webki   t-box;
+  -webkit-line-clamp: 1;  /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
