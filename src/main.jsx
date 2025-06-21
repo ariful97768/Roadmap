@@ -8,6 +8,9 @@ import {
 import Root from './Layout/Root';
 import AuthProvider from './ContextProvider/AuthProvider';
 import Home from './Pages/Home';
+import FeatureDetails from './Pages/FeatureDetails';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -17,9 +20,22 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/details/:id',
+        element: <FeatureDetails />,
+        loader: ({ params }) => fetch(`http://localhost:5000/get-post/${params.id}`)
       }
     ]
   },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/register",
+    element: <Register />
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
