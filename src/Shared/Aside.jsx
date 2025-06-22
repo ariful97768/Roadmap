@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import logo from "../assets/icons8-rockstar-games-100.png"
+import { AuthContext } from "../ContextProvider/AuthProvider";
 const Aside = () => {
+    const { setStatus } = useContext(AuthContext)
     return (
         <div className="border p-3 rounded-md">
             {/* logo, name, description */}
@@ -15,9 +18,9 @@ const Aside = () => {
 
             {/* sorting methods */}
             <div className="flex flex-col gap-3 my-10">
-                <button className="bg-yellow-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">Planned</button>
-                <button className="bg-blue-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">In Progress</button>
-                <button className="	bg-green-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">Released</button>
+                <button onClick={()=>setStatus('Planned')} className="bg-yellow-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">Planned</button>
+                <button onClick={()=>setStatus('In Progress')} className="bg-blue-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">In Progress</button>
+                <button onClick={()=>setStatus('Released')} className="	bg-green-400 text-black border border-red-200 px-5 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer">Released</button>
             </div>
 
             {/* footer */}

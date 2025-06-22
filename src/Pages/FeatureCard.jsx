@@ -1,11 +1,22 @@
 import { useState } from "react";
 import arrowIcon from "../assets/icons8-arrow-50.png";
 import { Link } from "react-router-dom";
-const FeatureCard = ({ data }) => {
+const FeatureCard = ({ data, refetch, setRefetch }) => {
 
-    const [clicked, setClicked] = useState(false)
-    const handleClick = () => {
-        setClicked(!clicked);
+    const [clicked, setClicked] = useState(true)
+    const handleClick = (id) => {
+        fetch(`http://localhost:5000/vote/${id}?voteType=${clicked}`, {
+            headers: { 'content-type': 'application/json' },
+            body: "",
+            method: 'PATCH'
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                setClicked(!clicked);
+                setRefetch(!refetch)
+            })
+            .catch(err => console.log(err))
     }
     return (
         <div>
@@ -17,10 +28,10 @@ const FeatureCard = ({ data }) => {
                 </div>
                 <div className='flex gap-10'>
                     <div className="flex items-center gap-2">
-                        <button onClick={handleClick} className={`bg-yellow-100 border border-red-200 px-2 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer ${clicked ? 'bg-yellow-300' : ''}`}>
+                        <button onClick={() => handleClick(data._id)} className={`bg-yellow-100 border border-red-200 px-2 py-1 rounded-lg active:scale-95 transition duration-200 ease-in-out hover:cursor-pointer ${!clicked ? 'bg-yellow-300' : ''}`}>
                             <img className="w-5 h-5 -rotate-90" src={arrowIcon} alt="" />
                         </button>
-                        <span>{data.upvotes>999? 999+'+':data.upvotes}</span>
+                        <span>{data.upvotes > 999 ? 999 + '+' : data.upvotes}</span>
                     </div>
                     <Link to={`/details/${data._id}`} className="py-1 rounded underline" >Comment</Link>
                 </div>

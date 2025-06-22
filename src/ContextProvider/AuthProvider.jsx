@@ -39,6 +39,7 @@ const AuthProvider = ({ children }) => {
         })
         return () => unSubscribe()
     }, [])
+    const [status, setStatus] = useState('all')
 
     const authInfo = {
         registerWithEmail,
@@ -48,6 +49,8 @@ const AuthProvider = ({ children }) => {
         logOut,
         user,
         loading,
+        setStatus,
+        status,
     }
     return (
         <AuthContext.Provider value={authInfo}>
