@@ -1,4 +1,9 @@
-const Comment = ({ comment, replyInp, setReply, handleComment }) => {
+import { useContext } from "react";
+import { AuthContext } from "../ContextProvider/AuthProvider";
+
+const Comment = ({ comment, replyInp, setReply, handleComment, deleteComment }) => {
+    const { user } = useContext(AuthContext)
+    console.log(user, comment);
 
     return (
         <>
@@ -13,10 +18,14 @@ const Comment = ({ comment, replyInp, setReply, handleComment }) => {
                     </div>
                     <p className="text-sm">{comment.comment}</p>
 
-                    <div className="flex text-sm gap-2">
-                        <p>5h</p>
-                        <p>UP</p>
+                    <div className="flex text-sm gap-4">
+                        <p>{new Date().getHours() - new Date(comment.time).getHours()}h ago</p>
                         <button onClick={() => setReply(comment?._id)}>Reply</button>
+                        {
+                            comment?.userId === user?.uid ? <div onClick={() => deleteComment(comment?._id)}>
+                                delete
+                            </div> : ""
+                        }
                     </div>
                 </div>
             </div>
@@ -39,9 +48,13 @@ const Comment = ({ comment, replyInp, setReply, handleComment }) => {
                         </div>
                         <p className="text-sm">{reply.comment}</p>
                         <div className="flex text-sm gap-2">
-                            <p>5h</p>
-                            <p>UP</p>
+                            <p>{new Date().getHours() - new Date(reply.time).getHours()}h ago</p>
                             <button onClick={() => setReply(reply?._id)}>Reply</button>
+                            {
+                                reply?.userId === user?.uid ? <div onClick={() => deleteComment(reply?._id)}>
+                                    delete
+                                </div> : ""
+                            }
                         </div>
                     </div>
                 </div>
@@ -66,9 +79,13 @@ const Comment = ({ comment, replyInp, setReply, handleComment }) => {
                                     </div>
                                     <p className="text-sm">{replyToReply.comment}</p>
                                     <div className="flex text-sm gap-2">
-                                        <p>5h</p>
-                                        <p>UP</p>
+                                        <p>{new Date().getHours() - new Date(replyToReply.time).getHours()}h ago</p>
                                         <button onClick={() => setReply(replyToReply?._id)}>Reply</button>
+                                        {
+                                            replyToReply?.userId === user?.uid ? <div onClick={() => deleteComment(replyToReply?._id)}>
+                                                delete
+                                            </div> : ""
+                                        }
                                     </div>
                                 </div>
                             </div>

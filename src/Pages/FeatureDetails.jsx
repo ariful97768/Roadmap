@@ -23,7 +23,7 @@ const FeatureDetails = () => {
     const handleComment = (e, commentId = null) => {
         e.preventDefault();
         const comment = {
-            userId: user?.useId,
+            userId: user?.uid,
             photoURL: user?.photoURL,
             postId: loaderData?._id,
             comment: e.target.comment.value,
@@ -48,6 +48,23 @@ const FeatureDetails = () => {
             })
             .catch(err => console.log(err))
     }
+
+    const deleteComment = (id) => {
+        fetch(`http://localhost:5000/delete-comment/${id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.deletedCount) {
+                    alert('Comment success')
+                } else {
+                    alert('Something went wrong')
+                }
+                setRefetch(!refetch)
+            })
+            .catch(err => console.log(err))
+    }
+
 
     return (
         <div className="mx-16">
@@ -77,7 +94,7 @@ const FeatureDetails = () => {
 
             {/* comments */}
 
-            {comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} />)
+            {comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} />)
             }
 
         </div>
