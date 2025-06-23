@@ -9,7 +9,9 @@ const FeatureDetails = () => {
     const [comments, setComment] = useState([])
     const { user } = useContext(AuthContext)
     const [reply, setReply] = useState(null)
-    console.log(reply);
+    const [toggleEdit, setToggleEdit] = useState(false);
+    const [editReply, setEditReply] = useState(false);
+
     useEffect(() => {
         fetch(`http://localhost:5000/get-comments/${loaderData?._id}?userId=${user?.uid}`)
             .then(res => res.json())
@@ -22,8 +24,17 @@ const FeatureDetails = () => {
 
     const handleComment = (e, commentId = null) => {
         e.preventDefault();
+        if (!e.target.comment.value) {
+            alert('Please write a comment')
+            return
+        }
+        if (!e.target.comment.value.trim()) {
+            alert("Comment cannot be empty!");
+            return;
+        }
         const comment = {
             userId: user?.uid,
+            userName: user?.displayName,
             photoURL: user?.photoURL,
             postId: loaderData?._id,
             comment: e.target.comment.value,
@@ -41,6 +52,7 @@ const FeatureDetails = () => {
             .then(res => {
                 if (res.insertedId) {
                     alert('Comment success')
+                    e.target.reset()
                 } else {
                     alert('Something went wrong')
                 }
@@ -65,6 +77,38 @@ const FeatureDetails = () => {
             .catch(err => console.log(err))
     }
 
+    const handleUpdate = (e, id) => {
+        e.preventDefault();
+        if (!e.target.comment.value) {
+            alert('Please write a comment')
+            return
+        }
+        if (!e.target.comment.value.trim()) {
+            alert("Comment cannot be empty!");
+            return;
+        }
+
+        fetch(`http://localhost:5000/update-comment/${id}`, {
+            method: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ comment: e.target.comment.value }),
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.modifiedCount) {
+
+                    alert('Comment updated successfully')
+                } else {
+                    alert('Something went wrong')
+                }
+                console.log(res);
+                setRefetch(!refetch)
+                setToggleEdit(false)
+                setEditReply(false)
+                e.target.reset()
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className="mx-16">
@@ -87,14 +131,14 @@ const FeatureDetails = () => {
                 {/* comment input */}
                 <form onSubmit={(e) => handleComment(e,)} className="flex items-center gap-4 mt-4 mb-6">
                     <img className="w-10 rounded-full h-10" src={user?.photoURL} alt="" />
-                    <textarea className="px-5 py-2 rounded-lg mr-4 w-full max-w-xl border" type="text" name="comment" id="" />
-                    <button className="px-5 py-2 border rounded-lg active:scale-95 ease-in-out transform duration-300">Submit</button>
+                    <textarea className="px-5 py-2 max-h-16 rounded-lg mr-2 w-full max-w-xl border" type="text" name="comment" id="" />
+                    <button className="px-5 py-2 border rounded-lg active:scale-95 ease-in-out transform duration-300">Comment</button>
                 </form>
             </div>
 
             {/* comments */}
 
-            {comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} />)
+            {comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} toggleEdit={toggleEdit} setToggleEdit={setToggleEdit} editReply={editReply} setEditReply={setEditReply} handleUpdate={handleUpdate} />)
             }
 
         </div>

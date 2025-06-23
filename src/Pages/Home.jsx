@@ -24,7 +24,7 @@ const Home = () => {
     }, [refetch, status])
     console.log(data);
     return (
-        <section className='border-2'>
+        <section>
 
             {
                 data.map(d => <FeatureCard key={d._id} data={d} refetch={refetch} setRefetch={setRefetch} />)
