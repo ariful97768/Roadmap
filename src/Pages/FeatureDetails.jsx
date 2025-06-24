@@ -16,7 +16,7 @@ const FeatureDetails = () => {
     const [editReply, setEditReply] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/get-comments/${loaderData?._id}?userId=${user?.uid}`)
+        fetch(`https://roadmap-server-woad.vercel.app/get-comments/${loaderData?._id}?userId=${user?.uid}`)
             .then(res => res.json())
             .then(res => {
                 setComment(res)
@@ -47,7 +47,7 @@ const FeatureDetails = () => {
             replyTo: commentId
         }
 
-        fetch('http://localhost:5000/add-comment', {
+        fetch('https://roadmap-server-woad.vercel.app/add-comment', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(comment),
@@ -66,7 +66,7 @@ const FeatureDetails = () => {
     }
 
     const deleteComment = (id) => {
-        fetch(`http://localhost:5000/delete-comment/${id}`, {
+        fetch(`https://roadmap-server-woad.vercel.app/delete-comment/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -92,7 +92,7 @@ const FeatureDetails = () => {
             return;
         }
 
-        fetch(`http://localhost:5000/update-comment/${id}`, {
+        fetch(`https://roadmap-server-woad.vercel.app/update-comment/${id}`, {
             method: 'PATCH',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ comment: e.target.comment.value }),

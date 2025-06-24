@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: '/details/:id',
         element: <PrivateRoute><FeatureDetails /></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/get-post/${params.id}`)
+        loader: ({ params }) => fetch(`https://roadmap-server-woad.vercel.app/get-post/${params.id}`)
       }
     ]
   },

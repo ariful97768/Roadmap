@@ -14,7 +14,7 @@ const Home = () => {
     const { status } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:5000?status=${status}`)
+        fetch(`https://roadmap-server-woad.vercel.app?status=${status}`)
             .then(res => res.json())
             .then(res => {
                 setData(res)
@@ -26,6 +26,7 @@ const Home = () => {
                 setLoader(false)
             })
     }, [refetch, status])
+    console.log(data);
     return (
         <section>
             <SearchFilter originalData={originalData} setData={setData} data={data} />

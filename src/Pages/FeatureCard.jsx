@@ -6,7 +6,7 @@ import { AuthContext } from "../ContextProvider/AuthProvider";
 const FeatureCard = ({ data, refetch, setRefetch }) => {
     const { user } = useContext(AuthContext)
     const handleClick = (id) => {
-        fetch(`http://localhost:5000/vote/${id}?userId=${user?.uid}`, {
+        fetch(`https://roadmap-server-woad.vercel.app/vote/${id}?userId=${user?.uid}`, {
             headers: { 'content-type': 'application/json' },
             body: "",
             method: 'PATCH'
