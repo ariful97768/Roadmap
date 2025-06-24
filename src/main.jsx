@@ -12,12 +12,13 @@ import FeatureDetails from './Pages/FeatureDetails';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import PrivateRoute from './ContextProvider/PrivateRoute';
+import UnknownRoute from './Pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PrivateRoute><Root /></PrivateRoute>,
-    errorElement: <div>Error</div>,
+    errorElement: <UnknownRoute />,
     children: [
       {
         path: '/',

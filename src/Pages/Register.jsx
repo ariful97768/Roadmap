@@ -19,13 +19,8 @@ const Register = () => {
         registerWithEmail(e.target.email.value, e.target.password.value)
             .then(res => {
                 setUser(res.user)
-                updateUser(e.target.name.value)
-                    .then(res => {
-                        console.log(res);
-                        alert('Registration successful')
-                        navigate('/')
-                    })
-                    .catch(err => console.log(err))
+                updateUser(e.target.name.value, `https://i.pravatar.cc/150?img=${res.user.uid}`)
+                navigate('/')
             })
             .catch(err => console.log(err))
     }

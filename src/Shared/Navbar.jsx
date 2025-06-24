@@ -12,7 +12,7 @@ const Navbar = () => {
             </div>
             <div className="relative">
                 <img onMouseEnter={() => setIsOpen(true)} className="rounded-full w-10 h-10" src={user?.photoURL} alt="profile" />
-                <div onMouseLeave={() => setIsOpen(false)} onMouseEnter={() => setDropdown(true)} className={`absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow z-10 transition-all duration-300 origin-top transform px-4 py-3 ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}>
+                <div onMouseLeave={() => setIsOpen(false)} className={`absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow z-10 transition-all duration-300 origin-top transform px-4 py-3 ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}>
                     <div className="text-right" ><span
                         onClick={() => setIsOpen(false)}
                         className="inline-block py-1 px-[10px] border rounded-full cursor-pointer transform transition duration-300 hover:rotate-90"
