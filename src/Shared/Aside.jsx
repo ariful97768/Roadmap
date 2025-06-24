@@ -4,7 +4,7 @@ import { AuthContext } from "../ContextProvider/AuthProvider";
 const Aside = () => {
     const { setStatus } = useContext(AuthContext)
     return (
-        <div className="shadow-2xl p-5 border border-gray-300 rounded-md">
+        <div className="shadow-2xl p-5 border border-gray-300 bg-white rounded-md">
             {/* logo, name, description */}
             <div className="border p-3 rounded-md border-gray-400">
                 <div className="flex items-center gap-3">

@@ -11,6 +11,7 @@ import Home from './Pages/Home';
 import FeatureDetails from './Pages/FeatureDetails';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import PrivateRoute from './ContextProvider/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <PrivateRoute><Home /></PrivateRoute>
       },
       {
         path: '/details/:id',
-        element: <FeatureDetails />,
+        element: <PrivateRoute><FeatureDetails /></PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:5000/get-post/${params.id}`)
       }
     ]

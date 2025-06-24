@@ -3,7 +3,7 @@ import { AuthContext } from "../ContextProvider/AuthProvider";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     return (
         <nav className='max-w-[1536px] mx-auto px-20 shadow-md flex items-center justify-between py-2'>
@@ -24,7 +24,10 @@ const Navbar = () => {
                     <h3 className="px-3 font-medium">{user?.displayName}</h3>
                     <p className="px-3 text-xs mb-4 opacity-80 overflow-hidden">{user?.email}</p>
                     <Link onClick={() => setTimeout(() => setIsOpen(false), 200)} className="hover:bg-orange-100 block   px-3 rounded-md" to={'/'}>Home</Link>
-                    <div onClick={() => setTimeout(() => setIsOpen(false), 200)} className="hover:bg-red-600 rounded-md px-3 hover:text-white cursor-pointer active:scale-95 transition-transform duration-300 ">Logout</div>
+                    <div onClick={() => {
+                        setTimeout(() => setIsOpen(false), 200)
+                        logOut()
+                    }} className="hover:bg-red-600 rounded-md px-3 hover:text-white cursor-pointer active:scale-95 transition-transform duration-300 ">Logout</div>
                 </div>
             </div>
         </nav>
