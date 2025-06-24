@@ -16,7 +16,7 @@ import PrivateRoute from './ContextProvider/PrivateRoute';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <PrivateRoute><Root /></PrivateRoute>,
     errorElement: <div>Error</div>,
     children: [
       {

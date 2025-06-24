@@ -45,7 +45,7 @@ const Register = () => {
                 </div>
                 <label htmlFor="name" className="flex flex-col">
                     Full Name
-                    <input placeholder="John Doe" className='border-2 shadow-lg border-b-3 border-r-4 min-w-xs px-3 py-2 rounded-lg outline-none border-gray-700' type="email" name="name" id="name" />
+                    <input placeholder="John Doe" className='border-2 shadow-lg border-b-3 border-r-4 min-w-xs px-3 py-2 rounded-lg outline-none border-gray-700' type="text" name="name" id="name" />
                 </label>
                 <label htmlFor="email" className="flex flex-col">
                     Email Address

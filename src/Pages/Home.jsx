@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import FeatureCard from "./FeatureCard";
 import { useContext } from "react";
 import { AuthContext } from "../ContextProvider/AuthProvider";
+import Spinner from "../assets/Spinner";
 
 const Home = () => {
-    const [loader, setLoader] = useState(true)
+
     const [refetch, setRefetch] = useState(false)
     const [data, setData] = useState([])
 
-    const { status } = useContext(AuthContext)
+    const { status, loader, setLoader } = useContext(AuthContext)
 
     useEffect(() => {
+        setLoader(true)
         fetch(`http://localhost:5000?status=${status}`)
             .then(res => res.json())
             .then(res => {
@@ -22,12 +24,11 @@ const Home = () => {
                 setLoader(false)
             })
     }, [refetch, status])
-    console.log(data);
     return (
         <section>
 
             {
-                data.map(d => <FeatureCard key={d._id} data={d} refetch={refetch} setRefetch={setRefetch} />)
+                loader ? <Spinner /> : data.map(d => <FeatureCard key={d._id} data={d} refetch={refetch} setRefetch={setRefetch} />)
             }
 
         </section>
