@@ -2,22 +2,25 @@ import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Comment from "./Comment";
 import { AuthContext } from "../ContextProvider/AuthProvider";
+import Spinner from "../assets/Spinner";
 
 const FeatureDetails = () => {
     const [refetch, setRefetch] = useState(false)
     const loaderData = useLoaderData()
     const [comments, setComment] = useState([])
-    const { user } = useContext(AuthContext)
+    const { user, loader, setLoader } = useContext(AuthContext)
     const [reply, setReply] = useState(null)
     const [toggleEdit, setToggleEdit] = useState(false);
     const [editReply, setEditReply] = useState(false);
 
     useEffect(() => {
+        setLoader(true)
         fetch(`http://localhost:5000/get-comments/${loaderData?._id}?userId=${user?.uid}`)
             .then(res => res.json())
             .then(res => {
                 setComment(res)
                 setReply(null)
+                setLoader(false)
             })
             .catch(err => console.log(err))
     }, [loaderData._id, refetch])
@@ -138,7 +141,10 @@ const FeatureDetails = () => {
 
             {/* comments */}
 
-            {comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} toggleEdit={toggleEdit} setToggleEdit={setToggleEdit} editReply={editReply} setEditReply={setEditReply} handleUpdate={handleUpdate} />)
+            {loader ?
+               <Spinner/>
+                :
+                comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} toggleEdit={toggleEdit} setToggleEdit={setToggleEdit} editReply={editReply} setEditReply={setEditReply} handleUpdate={handleUpdate} />)
             }
 
         </div>
