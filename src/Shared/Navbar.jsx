@@ -6,7 +6,7 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <nav className='max-w-[1536px] sticky top-0 bg-white z-10 mx-auto px-20 shadow-md flex items-center justify-between py-2'>
+        <nav className='max-w-[1536px] sticky top-0 bg-white z-10 mx-auto px-5 sm:px-20 shadow-md flex items-center justify-between py-2'>
             <div>
                 <h3 className="font-bold text-2xl leading-4"><span className="italic">Idea </span><br /><span className="italic ml-3">Nest</span></h3>
             </div>
@@ -20,7 +20,7 @@ const Navbar = () => {
                     </span>
                     <h3 className="px-3 font-medium">{user?.displayName}</h3>
                     <p className="px-3 text-xs mb-4 opacity-80 overflow-hidden">{user?.email}</p>
-                    <Link onClick={() => setTimeout(() => setIsOpen(false), 200)} className="hover:bg-orange-100 block  border px-3 rounded-md text-center" to={'/'}>Home</Link>
+                    <Link onClick={() => setTimeout(() => setIsOpen(false), 200)} className="hover:bg-orange-100 block border px-3 rounded-md text-center" to={'/'}>Home</Link>
                     <div onClick={() => {
                         setTimeout(() => setIsOpen(false), 200)
                         logOut()

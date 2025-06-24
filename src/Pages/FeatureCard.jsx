@@ -18,7 +18,7 @@ const FeatureCard = ({ data, refetch, setRefetch }) => {
             .catch(err => console.log(err))
     }
     return (
-        <div className="mx-3">
+        <div className="md:mx-3">
             <div className={` mt-7 px-5 border max-w-max rounded-tr-2xl border-b-0 ${data.status === 'Planned' && 'bg-yellow-400'} ${data.status === 'In Progress' && 'bg-blue-400'} ${data.status === 'Released' && 'bg-green-400'}`}>{data?.status}</div>
             <div className='bg-white/40 shadow-md px-5 py-3 border rounded-lg rounded-tl-none flex flex-col gap-5'>
                 <div>

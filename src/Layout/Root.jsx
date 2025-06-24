@@ -8,12 +8,12 @@ const Root = () => {
         <>
             <Navbar />
             <div className='bg-[#f8f8f4] min-h-[90vh]'>
-                <main className='flex pt-10 relative max-w-[1536px] mx-auto px-20'>
-                    <aside className='max-w-1/4 fixed mt-6 transform'>
+                <main className='flex py-10 flex-col sm:relative max-w-[1536px] mx-auto px-5 sm:px-20'>
+                    <aside className='w-full lg:max-w-2/6 xl:max-w-1/4 lg:fixed sm:mb-5 lg:mb-0 lg:mt-6 transform'>
                         <Aside />
                     </aside>
-                    <section className='w-full ml-15 flex justify-end'>
-                        <div className='max-w-3/4 pl-10 w-full  pb-10'>
+                    <section className='w-full mt-10 lg:ml-15 flex justify-end'>
+                        <div className=' lg:max-w-4/6 xl:max-w-3/4 lg:pl-10 w-full'>
                             <Outlet />
                         </div>
                     </section>

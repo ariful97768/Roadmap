@@ -24,18 +24,20 @@ const SearchFilter = ({ data, setData, originalData }) => {
     return (
         <div>
             {/* Sorting and filtering options */}
-            <div className='flex mx-3 justify-between'>
-                <form onSubmit={handleSearch} className='flex gap-3 items-center'>
+            <div className='flex flex-col xl:flex-row gap-5 sm:mx-3 justify-between'>
+                <form onSubmit={handleSearch} className='flex gap-3 items-center '>
                     <input className='border w-xs px-3 py-2 rounded-lg' placeholder='Search by keywords' type="text" name="search" id="search" />
                     <button type='submit' className='bg-yellow-400 cursor-pointer px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out'>Search</button>
                 </form>
-                <select onChange={handleFilter} className='outline-none border rounded-lg px-3 py-2' defaultValue={'none'} name="filter" id="filter">
-                    <option value="none" disabled>Filter by method</option>
-                    <option value="recent">Recent</option>
-                    <option value="popular">Popular</option>
-                    <option value="oldest">Oldest</option>
-                </select>
-                  <button onClick={()=>setData(originalData)} className="cursor-pointer text-black border  px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out">Clear Filter</button>
+                <div className="flex gap-5 justify-between">
+                    <select onChange={handleFilter} className='outline-none border rounded-lg max-w-44 px-3 py-2' defaultValue={'none'} name="filter" id="filter">
+                        <option value="none" disabled>Filter by method</option>
+                        <option value="recent">Recent</option>
+                        <option value="popular">Popular</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                    <button onClick={() => setData(originalData)} className="cursor-pointer text-black border max-w-40 px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out">Clear Filter</button>
+                </div>
             </div>
         </div>
     );
