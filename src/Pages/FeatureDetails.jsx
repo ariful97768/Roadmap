@@ -8,13 +8,14 @@ const FeatureDetails = () => {
     const [refetch, setRefetch] = useState(false)
     const loaderData = useLoaderData()
     const [comments, setComment] = useState([])
-    const { user, loader, setLoader } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
+    const [loader, setLoader] = useState(true)
+    // reply state
     const [reply, setReply] = useState(null)
     const [toggleEdit, setToggleEdit] = useState(false);
     const [editReply, setEditReply] = useState(false);
 
     useEffect(() => {
-        setLoader(true)
         fetch(`http://localhost:5000/get-comments/${loaderData?._id}?userId=${user?.uid}`)
             .then(res => res.json())
             .then(res => {
@@ -134,7 +135,7 @@ const FeatureDetails = () => {
                 {/* comment input */}
                 <form onSubmit={(e) => handleComment(e,)} className="flex items-center gap-4 mt-4 mb-6">
                     <img className="w-10 rounded-full h-10" src={user?.photoURL} alt="" />
-                    <textarea className="px-5 py-2 max-h-16 rounded-lg mr-2 w-full max-w-xl border" type="text" name="comment" id="" />
+                    <textarea placeholder="Comment your thoughts" className="px-5 py-2 max-h-16 rounded-lg mr-2 w-full max-w-xl border" type="text" name="comment" id="" />
                     <button className="px-5 py-2 border rounded-lg active:scale-95 ease-in-out transform duration-300">Comment</button>
                 </form>
             </div>
@@ -142,7 +143,7 @@ const FeatureDetails = () => {
             {/* comments */}
 
             {loader ?
-               <Spinner/>
+                <Spinner />
                 :
                 comments.map(comment => <Comment key={comment._id} comment={comment} replyInp={reply} setReply={setReply} handleComment={handleComment} deleteComment={deleteComment} toggleEdit={toggleEdit} setToggleEdit={setToggleEdit} editReply={editReply} setEditReply={setEditReply} handleUpdate={handleUpdate} />)
             }

@@ -6,7 +6,6 @@ const provider = new GoogleAuthProvider
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true) // loading is for user state management
-    const [loader, setLoader] = useState(true) // loader is for data loading state management
     const registerWithEmail = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
@@ -69,8 +68,6 @@ const AuthProvider = ({ children }) => {
         setStatus,
         status,
         updateUser,
-        setLoader,
-        loader,
     }
     return (
         <AuthContext.Provider value={authInfo}>

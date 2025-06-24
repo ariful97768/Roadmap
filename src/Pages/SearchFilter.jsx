@@ -27,7 +27,7 @@ const SearchFilter = ({ data, setData, originalData }) => {
             <div className='flex mx-3 justify-between'>
                 <form onSubmit={handleSearch} className='flex gap-3 items-center'>
                     <input className='border w-xs px-3 py-2 rounded-lg' placeholder='Search by keywords' type="text" name="search" id="search" />
-                    <button type='submit' className='bg-yellow-400 px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out'>Search</button>
+                    <button type='submit' className='bg-yellow-400 cursor-pointer px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out'>Search</button>
                 </form>
                 <select onChange={handleFilter} className='outline-none border rounded-lg px-3 py-2' defaultValue={'none'} name="filter" id="filter">
                     <option value="none" disabled>Filter by method</option>
@@ -35,7 +35,7 @@ const SearchFilter = ({ data, setData, originalData }) => {
                     <option value="popular">Popular</option>
                     <option value="oldest">Oldest</option>
                 </select>
-                  <button onClick={()=>setData(originalData)} className="cursor-pointer text-black border font-medium px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out">Clear Filter</button>
+                  <button onClick={()=>setData(originalData)} className="cursor-pointer text-black border  px-5 py-2 rounded-lg active:scale-95 transition duration-200 ease-in-out">Clear Filter</button>
             </div>
         </div>
     );
