@@ -13,7 +13,7 @@ const Root = () => {
                         <Aside />
                     </aside>
                     <section className='w-full mt-10 lg:ml-15 flex justify-end'>
-                        <div className=' lg:max-w-4/6 xl:max-w-3/4 lg:pl-10 w-full'>
+                        <div className=' lg:max-w-4/6 xl:max-w-3/4 lg:pl-10 lg:pr-14 w-full'>
                             <Outlet />
                         </div>
                     </section>

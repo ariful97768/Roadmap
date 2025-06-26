@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../ContextProvider/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import googleLogo from '../assets/googleLogo.png';
+import Swal from 'sweetalert2'
 
 const Register = () => {
     const { setUser, registerWithEmail, loading, user, loginWithGoogle, updateUser } = useContext(AuthContext)
@@ -14,21 +15,52 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        if (e.target.email.value === '' || e.target.password.value === '') return alert('Please fill all fields')
-        if (e.target.password.value.length < 6) return alert('Password must be at least 6 characters long')
+        if (e.target.email.value === '' || e.target.password.value === '') return Swal.fire('Please fill all fields')
+        if (e.target.password.value.length < 6) return Swal.fire('Password must be at least 6 characters long')
         registerWithEmail(e.target.email.value, e.target.password.value)
             .then(res => {
+                Swal.fire({
+                    title: 'Registration Successful',
+                    text: 'Welcome to IdeaNest!',
+                    icon: 'success',
+                    confirmButtonText: 'Continue'
+                })
                 setUser(res.user)
                 updateUser(e.target.name.value, `https://i.pravatar.cc/150?img=${res.user.uid}`)
                 navigate('/')
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went wrong, please try again later. Open console for more details.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                })
+                console.log(err)
+            })
+
     }
 
     const handleGoogle = () => {
         loginWithGoogle()
-            .then(res => setUser(res.user))
-            .catch(err => console.log(err))
+            .then(res => {
+                setUser(res.user)
+                Swal.fire({
+                    title: 'Registration Successful',
+                    text: 'Welcome to IdeaNest!',
+                    icon: 'success',
+                    confirmButtonText: 'Continue'
+                })
+            })
+            .catch(err => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went wrong, please try again later. Open console for more details.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                })
+                console.log(err)
+            })
     }
 
     return (

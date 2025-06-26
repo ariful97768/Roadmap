@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../ContextProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import googleLogo from '../assets/googleLogo.png';
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { loginWithEmail, loginWithGoogle, user, loading, setUser } = useContext(AuthContext)
@@ -16,13 +17,45 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault()
         loginWithEmail(e.target.email.value, e.target.password.value)
-            .then(res => setUser(res.user))
-            .catch(err => console.log(err))
+            .then(res => {
+                setUser(res.user)
+                Swal.fire({
+                    title: 'Registration Successful',
+                    text: 'Welcome to IdeaNest!',
+                    icon: 'success',
+                    confirmButtonText: 'Continue'
+                })
+            })
+            .catch(err => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went wrong, please try again later. Open console for more details.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                })
+                console.log(err)
+            })
     }
     const handleGoogle = () => {
         loginWithGoogle()
-            .then(res => setUser(res.user))
-            .catch(err => console.log(err))
+            .then(res => {
+                setUser(res.user)
+                Swal.fire({
+                    title: 'Registration Successful',
+                    text: 'Welcome to IdeaNest!',
+                    icon: 'success',
+                    confirmButtonText: 'Continue'
+                })
+            })
+            .catch(err => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went wrong, please try again later. Open console for more details.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                })
+                console.log(err)
+            })
     }
     return (
         <form onSubmit={handleLogin}>

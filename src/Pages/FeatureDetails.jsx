@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import Comment from "./Comment";
 import { AuthContext } from "../ContextProvider/AuthProvider";
 import Spinner from "../assets/Spinner";
+import Swal from "sweetalert2";
 
 const FeatureDetails = () => {
     const [refetch, setRefetch] = useState(false)
@@ -29,11 +30,11 @@ const FeatureDetails = () => {
     const handleComment = (e, commentId = null) => {
         e.preventDefault();
         if (!e.target.comment.value) {
-            alert('Please write a comment')
+            Swal.fire('Please write a comment')
             return
         }
         if (!e.target.comment.value.trim()) {
-            alert("Comment cannot be empty!");
+            Swal.fire("Comment cannot be empty!");
             return;
         }
         const comment = {
@@ -55,10 +56,34 @@ const FeatureDetails = () => {
             .then(res => res.json())
             .then(res => {
                 if (res.insertedId) {
-                    alert('Comment success')
+                    Swal.fire('Comment success')
                     e.target.reset()
                 } else {
-                    alert('Something went wrong')
+                    Swal.fire('Something went wrong')
+                }
+                setRefetch(!refetch)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleDelete = (id) => {
+        fetch(`https://roadmap-server-woad.vercel.app/delete-comment/${id}`, {
+            method: 'DELETE',
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.deletedCount) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "OOPS!",
+                        text: "Some unexpected error occurred.",
+                        icon: "warning"
+                    });
                 }
                 setRefetch(!refetch)
             })
@@ -66,29 +91,29 @@ const FeatureDetails = () => {
     }
 
     const deleteComment = (id) => {
-        fetch(`https://roadmap-server-woad.vercel.app/delete-comment/${id}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.deletedCount) {
-                    alert('Comment success')
-                } else {
-                    alert('Something went wrong')
-                }
-                setRefetch(!refetch)
-            })
-            .catch(err => console.log(err))
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDelete(id)
+            }
+        });
     }
 
     const handleUpdate = (e, id) => {
         e.preventDefault();
         if (!e.target.comment.value) {
-            alert('Please write a comment')
+            Swal.fire('Please write a comment')
             return
         }
         if (!e.target.comment.value.trim()) {
-            alert("Comment cannot be empty!");
+            Swal.fire("Comment cannot be empty!");
             return;
         }
 
@@ -101,9 +126,9 @@ const FeatureDetails = () => {
             .then(res => {
                 if (res.modifiedCount) {
 
-                    alert('Comment updated successfully')
+                    Swal.fire('Comment updated successfully')
                 } else {
-                    alert('Something went wrong')
+                    Swal.fire('Something went wrong')
                 }
                 console.log(res);
                 setRefetch(!refetch)
@@ -115,7 +140,7 @@ const FeatureDetails = () => {
     }
 
     return (
-        <div className="lg:mx-16">
+        <div className="lg:mx-4">
             <div>
                 {/* post section */}
                 <div>
